@@ -12,7 +12,10 @@ const tyrannosaurus = {
   diet: 'carnivorous',
   weight:'7000kg',
   length: '12m',
-  period:'Late Cretaceous'
+  period:'Late Cretaceous',
+  roar: function(){
+    return "RAWERSRARARWERSARARARRRR!"
+  }
 }
 
 // stegosaurus, herbivorous, 2000kg, 9m, Late Jurassic
@@ -49,11 +52,6 @@ console.log(tyrannosaurus.period);
 
 
 // Create a new roar method for the tyrannosaurus.  When called, return "RAWERSRARARWERSARARARRRR!" Log the result.
-const tyrannosaurus(){
-  roar: function(){
-    return "RAWERSRARARWERSARARARRRR!";
-  }
-}
 console.log(tyrannosaurus.roar);
 
 
@@ -135,7 +133,9 @@ The zoos want to display both the scientific name and the animal name in front o
 */
 const displayNames = [];
 
-
+zooAnimals.forEach(animal => {
+  displayNames.push(`name: ${animal.animal_name}, scientific: ${animal.scientific_name}`);
+});
 
 console.log(displayNames);
 
@@ -145,10 +145,9 @@ The zoos need a list of all their animal's names (animal_name only) converted to
 
 */
 
-const lowCaseAnimalNames = [];
-
-lowCaseAnimalNames.push(zooAnimals[i].animal_name.toLowerCase)
-
+const lowCaseAnimalNames = zooAnimals.map(animal => {
+  return animal.animal_name.toLowerCase();
+})
 console.log(lowCaseAnimalNames);
 
 /* Request 3: .filter() 
@@ -156,9 +155,11 @@ console.log(lowCaseAnimalNames);
 The zoos are concerned about animals with a lower population count. Using filter, create a new array of objects called lowPopulationAnimals which contains only the animals with a population less than 5.
 
 */
-const lowPopulationAnimals = [];
-
-
+const lowPopulationAnimals = zooAnimals.filter(animal => {
+  if (animal.population < 5) {
+    return animal;
+  }
+})
 
 console.log(lowPopulationAnimals);
 
@@ -167,9 +168,13 @@ console.log(lowPopulationAnimals);
 The zoos need to know their total animal population across the United States. Find the total population from all the zoos using the .reduce() method. Remember the reduce method takes two arguments: a callback (which itself takes two args), and an initial value for the count.
 
 */
-const populationTotal = 0;
 
-
+// METHOD CHAINING: 
+const populationTotal = zooAnimals.map(animal => {
+  return animal.population 
+}).reduce((total,amount) => {
+  return total + amount 
+});
 
 console.log(populationTotal);
 
